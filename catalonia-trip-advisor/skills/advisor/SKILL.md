@@ -155,7 +155,7 @@ If the user accepts, invoke the `report` skill via the `Skill` tool with `skill:
 - No emojis. No "as an AI". No "I'd recommend" filler — say what to do.
 - **Citation discipline**:
   - Stable claim → `[research/transportation/metro.md]`
-  - Volatile claim → `[tmb.cat, fetched 2026-05-17]`
+  - Volatile claim → `[<full-url>, fetched YYYY-MM-DD]` — quote the actual URL you WebFetched (e.g. `[https://www.tmb.cat/en/barcelona-fares-metro-bus, fetched 2026-05-17]`), not just the domain. The report skill reuses these citations to build clickable Sources entries, so a bare domain is not enough.
 
 ## Refusal & Escalation Patterns
 

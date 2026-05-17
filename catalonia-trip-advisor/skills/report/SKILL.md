@@ -90,7 +90,8 @@ Format each entry:
 - **Web source (had a URL and `fetched YYYY-MM-DD`):**
   - Markdown: `1. [<label>](<url>) — fetched YYYY-MM-DD`
   - HTML: `<li id="src1"><a href="<url>"><label></a> — fetched YYYY-MM-DD</li>`
-  - `<label>` is a short human-readable name for the source ("TMB official fares", "Renfe Rodalies schedules"), not the bare domain.
+  - `<url>` is the URL exactly as the advisor cited it. If — and only if — the citation contains a bare domain rather than a full URL, prefix `https://` to make the link work, and treat that as a degraded case (the advisor citation discipline now requires a full URL).
+  - `<label>` is a short human-readable name derived from the source's host or path (e.g. `https://www.tmb.cat/...` → "tmb.cat", `https://www.barcelona-tourist-guide.com/en/airport/aerobus.html` → "Aerobus · barcelona-tourist-guide.com"). Do NOT invent a marketing-style label that isn't supported by the URL. If nothing reasonable comes to mind, fall back to the URL's host (`tmb.cat`).
 - **Internal source (a `research/...` path):**
   - Markdown: `1. [Catalonia Advisor knowledge base — <path>](../catalonia-trip-advisor/skills/advisor/research/<path>.md)`
   - HTML: `<li id="src2"><a href="../catalonia-trip-advisor/skills/advisor/research/<path>.md">Catalonia Advisor knowledge base — <path></a></li>`
