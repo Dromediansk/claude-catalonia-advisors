@@ -147,6 +147,8 @@ Skip this offer for one-shot answers ("is the tap water safe?", "how much is T-C
 
 If the user accepts, invoke the `report` skill via the `Skill` tool with `skill: catalonia-trip-advisor:report`. Hand off silently — don't narrate "I'll invoke the report skill now." Do not write the document yourself; the report skill owns formatting and source rendering, and duplicating it here would drift.
 
+If — and only if — the `Skill` tool is not available in this environment (the same condition flagged for the interview skill in STEP 0.2), tell the user in one line: "Document export isn't available in this environment — copy the answer above into a file manually if you'd like a record." Do not attempt to write the document inline; the formatting and source-rendering discipline lives in the report skill, and reproducing it from memory is exactly the drift this gate prevents.
+
 ## Output Style
 
 - Plain language, short paragraphs, bullets over prose. Tourists are tired and on a phone.
