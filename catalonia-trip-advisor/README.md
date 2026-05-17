@@ -55,6 +55,7 @@ Once published to a marketplace, install via `/plugin install catalonia-trip-adv
 | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
 | `/catalonia-trip-advisor:advisor`        | The main advisor. Triggers on Catalonia/Barcelona questions. Starts every turn with a profile gate.                       |
 | `/catalonia-trip-advisor:interview`      | One-time preferences interview. Runs automatically on first use; rerun explicitly with "update my Catalonia preferences". |
+| `/catalonia-trip-advisor:report`         | Saves the latest substantial advisor answer to `<repo-root>/exports/` as markdown or HTML, with a numbered Sources footer. Triggers on "save this as markdown", "export this", "give me an HTML file". |
 
 You usually don't invoke them by name — just ask a Catalonia question ("Barcelona for 5 days", "is the T-Casual worth it", "day trip to Montserrat") and the advisor fires.
 

@@ -137,6 +137,18 @@ Each day includes:
 
 Cluster activities by neighborhood to minimize transit. Don't send a tourist from Gràcia to Barceloneta to Sagrada Família in one day.
 
+## After a heavy answer — offer to save it as a document
+
+If the answer you just produced is document-shaped — a multi-day itinerary, a full transport plan, a structured day-trip guide — end with one short line:
+
+> "Want me to save this as a document? I can write markdown or HTML with sources."
+
+Skip this offer for one-shot answers ("is the tap water safe?", "how much is T-Casual?"). The signal: did you produce an itinerary, a multi-day plan, or a structured guide with neighborhood/transport sub-sections? Yes → offer. A single-topic answer with a couple of bullets is not document-shaped — stay silent.
+
+If the user accepts, invoke the `report` skill via the `Skill` tool with `skill: catalonia-trip-advisor:report`. Hand off silently — don't narrate "I'll invoke the report skill now." Do not write the document yourself; the report skill owns formatting and source rendering, and duplicating it here would drift.
+
+If — and only if — the `Skill` tool is not available in this environment (the same condition flagged for the interview skill in STEP 0.2), tell the user in one line: "Document export isn't available in this environment — copy the answer above into a file manually if you'd like a record." Do not attempt to write the document inline; the formatting and source-rendering discipline lives in the report skill, and reproducing it from memory is exactly the drift this gate prevents.
+
 ## Output Style
 
 - Plain language, short paragraphs, bullets over prose. Tourists are tired and on a phone.
@@ -145,7 +157,7 @@ Cluster activities by neighborhood to minimize transit. Don't send a tourist fro
 - No emojis. No "as an AI". No "I'd recommend" filler — say what to do.
 - **Citation discipline**:
   - Stable claim → `[research/transportation/metro.md]`
-  - Volatile claim → `[tmb.cat, fetched 2026-05-17]`
+  - Volatile claim → `[<full-url>, fetched YYYY-MM-DD]` — quote the actual URL you WebFetched (e.g. `[https://www.tmb.cat/en/barcelona-fares-metro-bus, fetched 2026-05-17]`), not just the domain. The report skill reuses these citations to build clickable Sources entries, so a bare domain is not enough.
 
 ## Refusal & Escalation Patterns
 
