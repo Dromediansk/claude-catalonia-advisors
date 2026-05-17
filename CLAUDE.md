@@ -17,7 +17,7 @@ Four topic areas:
 
 **Audience**: tourists planning or currently on a trip. Plain language, concrete logistics, short actionable answers. Gloss Catalan terms (*plaça*, *carrer*, *menú del dia*) on first use.
 
-**Status**: in active development. Plugin is packaged with manifest, two skills, and all four research areas.
+**Status**: in active development. Plugin is packaged with manifest, three skills, and all four research areas.
 
 ## Repository Layout
 
@@ -29,7 +29,8 @@ catalonia-trip-advisor/                       # repo root
 ├── .claude-plugin/marketplace.json           # local-marketplace manifest
 ├── docs/                                     # supplementary, not loaded by the plugin
 ├── profile/                                  # user data — written by the interview, read by the advisor
-│   └── spain-trip-profile.md                 # the actual profile (gitignore this if the repo becomes git-tracked)
+│   └── spain-trip-profile.md                 # the actual profile (gitignored)
+├── exports/                                  # generated documents from the `report` skill (gitignored, safe to delete)
 └── catalonia-trip-advisor/                   # the plugin
     ├── .claude-plugin/plugin.json            # manifest — required for plugin discovery
     ├── README.md                             # user-facing intro
@@ -39,18 +40,25 @@ catalonia-trip-advisor/                       # repo root
         │   └── research/                     # supporting corpus for stable facts
         │       ├── sources.md                # authoritative URLs for WebFetch (highest-leverage file)
         │       ├── culture/  tips/  transportation/  travelling/
-        └── interview/
-            └── SKILL.md                      # one-time preferences interview, writes the profile
+        ├── interview/
+        │   └── SKILL.md                      # one-time preferences interview, writes the profile
+        └── report/
+            ├── SKILL.md                      # turns the latest advisor answer into a markdown/HTML doc
+            └── assets/
+                ├── template.html             # standalone HTML template with embedded CSS
+                └── style-notes.md            # markdown layout cheat sheet
 ```
 
-Once installed, the skills are registered as `/catalonia-trip-advisor:advisor` and `/catalonia-trip-advisor:interview` — the prefix comes from the `name` field in `plugin.json`.
+Once installed, the skills are registered as `/catalonia-trip-advisor:advisor`, `/catalonia-trip-advisor:interview`, and `/catalonia-trip-advisor:report` — the prefix comes from the `name` field in `plugin.json`.
 
 - **`catalonia-trip-advisor/.claude-plugin/plugin.json`** — plugin manifest. Bump `version` to publish an update; without an explicit version every commit SHA counts as a release.
 - **`catalonia-trip-advisor/skills/advisor/`** — entry point for the main advisor. Frontmatter triggers the skill; body is the playbook. STEP 0 resolves the repo root (the dir holding both `CLAUDE.md` and `.claude-plugin/marketplace.json`), checks `profile/spain-trip-profile.md` there, and invokes the interview if missing.
 - **`catalonia-trip-advisor/skills/advisor/research/`** — the source of truth for stable facts, referenced from the advisor SKILL.md with plain relative paths (`research/...`). Lives **inside** the advisor skill, matching how Anthropic's own plugins (e.g. `skill-creator`, `math-olympiad`) co-locate supporting files. `${CLAUDE_SKILL_DIR}` resolves to this skill's folder.
 - **`catalonia-trip-advisor/skills/interview/`** — sub-skill. Collects user preferences (group, pace, interests, budget, diet, mobility, language, base) and writes them to `profile/spain-trip-profile.md` at the repo root. Invoked implicitly on first run and explicitly via "update my Catalonia preferences". No supporting files of its own.
+- **`catalonia-trip-advisor/skills/report/`** — sub-skill that turns the most recent substantial advisor answer into a clean, source-cited document in `exports/`. Asks the user for markdown or HTML, never re-fetches volatile facts, and renders both inline superscripts and a numbered Sources footer so a tourist can verify any claim by clicking the original URL. Triggered by the advisor's end-of-answer offer or by explicit phrases like "save this as markdown".
 - **`docs/`** — design specs under `docs/superpowers/specs/`, example outputs (e.g. `transport-tickets-4day-couple.md`). Not loaded by the plugin.
-- **`profile/spain-trip-profile.md`** — user-data file the interview writes and the advisor reads. Lives at the repo root (alongside `CLAUDE.md` and `docs/`), not inside the plugin, so the plugin folder stays a pure publishable artifact. Tradeoff to know: the profile is tied to this working tree — a fresh clone or reinstall starts with no profile and re-triggers the interview. Resolved at runtime by Bash walking up from CWD until it finds a directory containing both `CLAUDE.md` and `.claude-plugin/marketplace.json`.
+- **`exports/`** — generated documents from the `report` skill. Each export is a standalone `.md` or `.html` file with an inline-superscript body and a numbered Sources footer that links back to the URLs the advisor cited (with fetch dates). Gitignored, safe to delete. The folder is created on first run by the report skill itself; no manual `mkdir` needed.
+- **`profile/spain-trip-profile.md`** — user-data file the interview writes and the advisor reads. Lives at the repo root (alongside `CLAUDE.md`, `docs/`, and `exports/`), not inside the plugin, so the plugin folder stays a pure publishable artifact. Tradeoff to know: the profile is tied to this working tree — a fresh clone or reinstall starts with no profile and re-triggers the interview. Resolved at runtime by Bash walking up from CWD until it finds a directory containing both `CLAUDE.md` and `.claude-plugin/marketplace.json`.
 
 ## Authoring Rules
 
