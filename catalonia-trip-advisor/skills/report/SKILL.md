@@ -74,7 +74,7 @@ Build the body in this order:
 1. **H1 title** (markdown `# Title` or HTML `<h1>Title</h1>` — handled by the renderer in Step 7).
 2. **"At a glance" block** (1–3 lines). Derive it from the advisor's answer itself — the advisor already filtered through the profile, so the answer text contains what you need (trip length, base, focus). Do NOT open the profile file; the answer is the source of truth here. For non-itinerary docs, a 1–2 line lede framing the topic is enough.
 3. **Body sections.** Mirror the advisor's structure: day-by-day (`## Day 1 — ...`) for itineraries, topic sections (`## Transport from BCN airport`) otherwise. Reuse the advisor's wording where it reads well as a document; tighten the chattier passages.
-4. **Inline source markers.** Every cited fact gets a superscript marker numbered in citation order. In markdown: `[¹]`, `[²]`, `[³]` using Unicode superscripts. In HTML: `<sup>1</sup>`, `<sup>2</sup>`, `<sup>3</sup>`. The same source reused later in the document keeps its first number.
+4. **Inline source markers.** Every cited fact gets a superscript marker numbered in citation order. In markdown: `[¹]`, `[²]`, `[³]` using Unicode superscripts. In HTML, wrap each marker in an anchor that jumps to the matching Sources entry: `<sup><a href="#src1">1</a></sup>`, `<sup><a href="#src2">2</a></sup>`, and so on. The same source reused later in the document keeps its first number and the same `href`.
 
 ## Step 6 — Build the Sources footer
 
@@ -84,12 +84,14 @@ Format each entry:
 
 - **Web source (had a URL and `fetched YYYY-MM-DD`):**
   - Markdown: `1. [<label>](<url>) — fetched YYYY-MM-DD`
-  - HTML: `<li><a href="<url>"><label></a> — fetched YYYY-MM-DD</li>`
+  - HTML: `<li id="src1"><a href="<url>"><label></a> — fetched YYYY-MM-DD</li>`
   - `<label>` is a short human-readable name for the source ("TMB official fares", "Renfe Rodalies schedules"), not the bare domain.
 - **Internal source (a `research/...` path):**
   - Markdown: `1. Catalonia Advisor knowledge base — <path>`
-  - HTML: `<li>Catalonia Advisor knowledge base — <path></li>`
-  - `<path>` is the citation with the leading `research/` and the trailing `.md` stripped (e.g., `research/transportation/metro.md` → `transportation/metro`). No hyperlink — these are the plugin's own corpus, not external URLs, and pretending otherwise would be misleading.
+  - HTML: `<li id="src2">Catalonia Advisor knowledge base — <path></li>`
+  - `<path>` is the citation with the leading `research/` and the trailing `.md` stripped (e.g., `research/transportation/metro.md` → `transportation/metro`). No hyperlink to the path itself — these are the plugin's own corpus, not external URLs, and pretending otherwise would be misleading. The `id="srcN"` is only there so the inline superscript can scroll-anchor to this entry.
+
+The `id="srcN"` numbers must match the inline superscript numbers built in Step 5, so a click on superscript `2` in the body scrolls to `<li id="src2">` in the footer.
 
 ## Step 7 — Render in the chosen format
 
