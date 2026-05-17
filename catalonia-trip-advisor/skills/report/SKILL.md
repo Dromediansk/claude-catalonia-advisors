@@ -33,11 +33,16 @@ If the output is `PROJECT_ROOT_NOT_FOUND`, tell the user in one line: "I need to
 
 Otherwise, remember the absolute path after `PROJECT_ROOT:` for later steps.
 
-## Step 2 — Ask the user the format
+## Step 2 — Determine the format
 
-Ask exactly one short question, no preamble: **"Markdown or HTML?"**
+First, check the user's most recent message that triggered this skill. If it already names a format, use it and skip the question:
 
-Wait for the reply. Accept `md`, `markdown`, `.md` as markdown; `html`, `.html` as HTML. If anything else, ask once more. Do not ask any other follow-ups (no "what should the title be", no "where should I save it").
+- Mentions of `markdown`, `md`, `.md`, "as markdown", "as md" → markdown.
+- Mentions of `html`, `.html`, "as html", "html file" → HTML.
+
+If — and only if — the request is ambiguous (e.g. plain "save this", "export this", "write me a doc"), ask exactly one short question, no preamble: **"Markdown or HTML?"** Wait for the reply, accepting the same tokens as above. If anything else, ask once more.
+
+Do not ask any other follow-ups (no "what should the title be", no "where should I save it").
 
 ## Step 3 — Identify the source answer
 
