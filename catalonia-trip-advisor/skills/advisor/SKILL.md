@@ -137,6 +137,16 @@ Each day includes:
 
 Cluster activities by neighborhood to minimize transit. Don't send a tourist from Gràcia to Barceloneta to Sagrada Família in one day.
 
+## After a heavy answer — offer to save it as a document
+
+If the answer you just produced is document-shaped — a multi-day itinerary, a full transport plan, a structured day-trip guide — end with one short line:
+
+> "Want me to save this as a document? I can write markdown or HTML with sources."
+
+Skip this offer for one-shot answers ("is the tap water safe?", "how much is T-Casual?"). The signal: did the answer have multiple sections or a day-by-day structure? Yes → offer. No → stay silent.
+
+If the user accepts, invoke the `report` skill via the `Skill` tool with `skill: catalonia-trip-advisor:report`. Do not write the document yourself — the report skill owns formatting and source rendering, and reinventing it here would drift from the spec.
+
 ## Output Style
 
 - Plain language, short paragraphs, bullets over prose. Tourists are tired and on a phone.
