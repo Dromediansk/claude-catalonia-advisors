@@ -67,7 +67,7 @@ Read the topic of the answer. Produce:
   4. Strip every character that is not `[a-z0-9-]` (this also removes `.`, `/`, `\`, quotes, etc.).
   5. Collapse runs of `-` into a single `-`.
   6. Trim leading and trailing `-`.
-  7. Cap length at 60 characters (do not split a word — just truncate).
+  7. Cap length at 60 characters. If the slug is longer than 60, truncate to 60 and then back up to the previous `-` so the slug ends on a word boundary; if there is no `-` in the first 60 characters, hard-truncate at 60. After this step, re-apply the trim from rule 6 to drop any trailing `-`.
   8. If the result is empty after all that (e.g. the title was entirely non-foldable characters), fall back to `report-YYYY-MM-DD` using today's date.
 
   The final slug MUST match `^[a-z0-9-]+$`. If it doesn't, use the fallback. Example: `Barcelona — 5-Day Itinerary` → `barcelona-5-day-itinerary`.
