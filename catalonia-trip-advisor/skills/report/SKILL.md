@@ -122,8 +122,8 @@ Build the full document as a single string following the layout in `assets/style
 
 ## Sources
 
-1. [TMB official fares](https://www.tmb.cat/...) — fetched 2026-05-17
-2. Catalonia Advisor knowledge base — transportation/metro
+1. [tmb.cat](https://www.tmb.cat/en/barcelona-fares-metro-bus) — fetched 2026-05-17
+2. [Catalonia Advisor knowledge base — transportation/metro](../catalonia-trip-advisor/skills/advisor/research/transportation/metro.md)
 ````
 
 ### If HTML
