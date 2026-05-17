@@ -132,10 +132,10 @@ Read the template at `${CLAUDE_SKILL_DIR}/assets/template.html` (or the equivale
 
 - `{{TITLE}}` → the plain-text H1 title (no HTML).
 - `{{DATE}}` → today's date in `YYYY-MM-DD`.
-- `{{BODY}}` → the body sections converted to HTML: `## X` → `<h2>X</h2>`, paragraphs wrapped in `<p>`, lists as `<ul><li>`, superscript markers as `<sup>N</sup>`.
+- `{{BODY}}` → the body sections converted to HTML: `## X` → `<h2>X</h2>`, paragraphs wrapped in `<p>`, lists as `<ul><li>`, superscript markers as anchored links `<sup><a href="#srcN">N</a></sup>` so they jump to the matching Sources entry (per Step 5).
 - `{{SOURCES}}` → an `<ol>` of `<li>` entries built in Step 6.
 
-**Markdown elements not covered above** — convert as expected: `**bold**` → `<strong>`, `*italic*` → `<em>`, `` `code` `` → `<code>`, `[label](url)` → `<a href="url">label</a>`, `### Heading` → `<h3>`, pipe tables → `<table>` with `<thead>`/`<tbody>` rows, blockquotes → `<blockquote>`, fenced code → `<pre><code>`. Preserve the literal `[¹]`, `[²]` superscript markers as `<sup>1</sup>`, `<sup>2</sup>` — do NOT let the `[ ]` be parsed as link brackets. HTML-escape `<`, `>`, `&` in the title and any body text that isn't itself markup.
+**Markdown elements not covered above** — convert as expected: `**bold**` → `<strong>`, `*italic*` → `<em>`, `` `code` `` → `<code>`, `[label](url)` → `<a href="url">label</a>`, `### Heading` → `<h3>`, pipe tables → `<table>` with `<thead>`/`<tbody>` rows, blockquotes → `<blockquote>`, fenced code → `<pre><code>`. Preserve the literal `[¹]`, `[²]` superscript markers as anchored links `<sup><a href="#src1">1</a></sup>`, `<sup><a href="#src2">2</a></sup>` — do NOT let the `[ ]` be parsed as link brackets, and do NOT emit a bare `<sup>1</sup>` without the anchor. HTML-escape `<`, `>`, `&` in the title and any body text that isn't itself markup.
 
 ## Step 8 — Write the file
 
