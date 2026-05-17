@@ -143,9 +143,9 @@ If the answer you just produced is document-shaped — a multi-day itinerary, a 
 
 > "Want me to save this as a document? I can write markdown or HTML with sources."
 
-Skip this offer for one-shot answers ("is the tap water safe?", "how much is T-Casual?"). The signal: did the answer have multiple sections or a day-by-day structure? Yes → offer. No → stay silent.
+Skip this offer for one-shot answers ("is the tap water safe?", "how much is T-Casual?"). The signal: did you produce an itinerary, a multi-day plan, or a structured guide with neighborhood/transport sub-sections? Yes → offer. A single-topic answer with a couple of bullets is not document-shaped — stay silent.
 
-If the user accepts, invoke the `report` skill via the `Skill` tool with `skill: catalonia-trip-advisor:report`. Do not write the document yourself — the report skill owns formatting and source rendering, and reinventing it here would drift from the spec.
+If the user accepts, invoke the `report` skill via the `Skill` tool with `skill: catalonia-trip-advisor:report`. Hand off silently — don't narrate "I'll invoke the report skill now." Do not write the document yourself; the report skill owns formatting and source rendering, and duplicating it here would drift.
 
 ## Output Style
 
