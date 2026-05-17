@@ -1,7 +1,7 @@
 {
   "name": "catalonia-trip-advisor",
   "description": "Travel advisor for tourists visiting Catalonia and Barcelona — itineraries, day trips, transport (metro/T-Casual/Rodalies), neighborhoods, food, scams, and culture. Gates every answer on a one-time preferences interview.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Miroslav Pillar"
   }
