@@ -69,13 +69,14 @@ Once installed, the skills are registered as `/catalonia-trip-advisor:advisor`, 
   - **Volatile** (prices, fares, hours, schedules, dated festivals, ticket availability) → **WebFetched live** from URLs in `research/sources.md`, cited with fetch date. **Never quoted from a research file.** A stale price is the failure mode this skill exists to prevent.
   - When in doubt, treat a fact as volatile.
 - **Frontmatter on research files**: `title`, `topic` (one of the four areas, or `meta` for `sources.md`), `last_verified` (YYYY-MM-DD).
+- **Skill-specific static files** (HTML templates, style cheatsheets) live in `<skill>/assets/` — e.g. `catalonia-trip-advisor/skills/report/assets/`. Reference them with relative paths from `SKILL.md` (`assets/template.html`) or with `${CLAUDE_SKILL_DIR}/assets/...` for absolute resolution. Like research files, these are content, not code.
 - **Catalan-aware**: prefer Catalan place names (Plaça de Catalunya, not Plaza de Cataluña) but acknowledge the Spanish form on first mention.
 - **Research edits are content changes, not code changes** — reviewable by non-engineers. `sources.md` is the highest-leverage file: adding a new authoritative URL there expands what the skill can verify.
 
 ## Working in This Repo
 
 - No build, no lint, no tests — it's markdown. Verification is loading the plugin in a real Claude session and watching the output.
-- **Local testing**: from the repo root, run `claude --plugin-dir catalonia-trip-advisor`. After editing any file, run `/reload-plugins` inside the session to pick up changes without restarting. Confirm both skills appear under `/help`.
+- **Local testing**: from the repo root, run `claude --plugin-dir catalonia-trip-advisor`. After editing any file, run `/reload-plugins` inside the session to pick up changes without restarting. Confirm all three skills appear under `/help`.
 - **Adding research files**: drop them under `catalonia-trip-advisor/skills/advisor/research/<topic>/` and add a one-line pointer from the advisor's `SKILL.md` so Claude can discover them. Files Claude can't discover are dead weight.
 - **Adding sources**: add the authoritative URL to `catalonia-trip-advisor/skills/advisor/research/sources.md`. This is the highest-leverage edit — it expands what volatile facts the skill can verify live.
 - The STEP 0 profile gate at the top of the advisor's `SKILL.md` is load-bearing — it enforces the interview sub-skill before any answer. Don't trim it as "preamble"; the rationalization table inside it documents real test failures.
