@@ -87,9 +87,9 @@ Format each entry:
   - HTML: `<li id="src1"><a href="<url>"><label></a> — fetched YYYY-MM-DD</li>`
   - `<label>` is a short human-readable name for the source ("TMB official fares", "Renfe Rodalies schedules"), not the bare domain.
 - **Internal source (a `research/...` path):**
-  - Markdown: `1. Catalonia Advisor knowledge base — <path>`
-  - HTML: `<li id="src2">Catalonia Advisor knowledge base — <path></li>`
-  - `<path>` is the citation with the leading `research/` and the trailing `.md` stripped (e.g., `research/transportation/metro.md` → `transportation/metro`). No hyperlink to the path itself — these are the plugin's own corpus, not external URLs, and pretending otherwise would be misleading. The `id="srcN"` is only there so the inline superscript can scroll-anchor to this entry.
+  - Markdown: `1. [Catalonia Advisor knowledge base — <path>](../catalonia-trip-advisor/skills/advisor/research/<path>.md)`
+  - HTML: `<li id="src2"><a href="../catalonia-trip-advisor/skills/advisor/research/<path>.md">Catalonia Advisor knowledge base — <path></a></li>`
+  - `<path>` is the citation with the leading `research/` and the trailing `.md` stripped (e.g., `research/transportation/metro.md` → `transportation/metro`). The `href` is a relative path from `exports/` back to the actual research file in the plugin — so a reader can click straight through to the underlying corpus. It resolves in any browser opened against the file, and renders the markdown if the repo is viewed on GitHub. Both inline `<sup>` and the footer entry are clickable.
 
 The `id="srcN"` numbers must match the inline superscript numbers built in Step 5, so a click on superscript `2` in the body scrolls to `<li id="src2">` in the footer.
 
