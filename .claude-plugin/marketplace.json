@@ -1,0 +1,17 @@
+{
+  "name": "catalonia-local",
+  "owner": {
+    "name": "Miroslav Pillar",
+    "email": "miroslav.pillar@finshape.com"
+  },
+  "metadata": {
+    "description": "Local marketplace for the catalonia-trip-advisor plugin under development."
+  },
+  "plugins": [
+    {
+      "name": "catalonia-trip-advisor",
+      "source": "./catalonia-trip-advisor",
+      "description": "Travel advisor for tourists visiting Catalonia and Barcelona — itineraries, day trips, transport, neighborhoods, food, scams, and culture."
+    }
+  ]
+}
