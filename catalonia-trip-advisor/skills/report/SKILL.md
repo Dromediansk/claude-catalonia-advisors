@@ -55,14 +55,24 @@ Otherwise, use that answer as your raw material. Do NOT invent content. Do NOT r
 Read the topic of the answer. Produce:
 
 - **Title (H1):** a short noun phrase. Examples: "Barcelona — 5-Day Itinerary", "Getting from BCN airport to the city", "Day trip to Montserrat".
-- **Slug:** lowercase the title, fold non-ASCII (`è` → `e`, `ç` → `c`, `—` → `-`), replace spaces with hyphens, strip other punctuation, collapse repeated hyphens, cap at 60 chars. Example: `Barcelona — 5-Day Itinerary` → `barcelona-5-day-itinerary`.
+- **Slug:** apply these steps in order, exactly once each:
+  1. Lowercase the title.
+  2. Fold non-ASCII characters to their nearest ASCII equivalent (`è` → `e`, `ç` → `c`, `ñ` → `n`, `—` → `-`, `–` → `-`). For characters with no obvious Latin fold (CJK, Cyrillic, emoji, etc.), drop them.
+  3. Replace any whitespace run with a single `-`.
+  4. Strip every character that is not `[a-z0-9-]` (this also removes `.`, `/`, `\`, quotes, etc.).
+  5. Collapse runs of `-` into a single `-`.
+  6. Trim leading and trailing `-`.
+  7. Cap length at 60 characters (do not split a word — just truncate).
+  8. If the result is empty after all that (e.g. the title was entirely non-foldable characters), fall back to `report-YYYY-MM-DD` using today's date.
+
+  The final slug MUST match `^[a-z0-9-]+$`. If it doesn't, use the fallback. Example: `Barcelona — 5-Day Itinerary` → `barcelona-5-day-itinerary`.
 
 ## Step 5 — Restructure into document shape
 
 Build the body in this order:
 
 1. **H1 title** (markdown `# Title` or HTML `<h1>Title</h1>` — handled by the renderer in Step 7).
-2. **"At a glance" block** (1–3 lines). For itineraries, summarize trip duration, base, and focus areas, pulled silently from the profile at `<repo-root>/profile/spain-trip-profile.md` if it exists. For other docs, a 1–2 line lede framing the topic.
+2. **"At a glance" block** (1–3 lines). Derive it from the advisor's answer itself — the advisor already filtered through the profile, so the answer text contains what you need (trip length, base, focus). Do NOT open the profile file; the answer is the source of truth here. For non-itinerary docs, a 1–2 line lede framing the topic is enough.
 3. **Body sections.** Mirror the advisor's structure: day-by-day (`## Day 1 — ...`) for itineraries, topic sections (`## Transport from BCN airport`) otherwise. Reuse the advisor's wording where it reads well as a document; tighten the chattier passages.
 4. **Inline source markers.** Every cited fact gets a superscript marker numbered in citation order. In markdown: `[¹]`, `[²]`, `[³]` using Unicode superscripts. In HTML: `<sup>1</sup>`, `<sup>2</sup>`, `<sup>3</sup>`. The same source reused later in the document keeps its first number.
 
@@ -117,6 +127,8 @@ Read the template at `${CLAUDE_SKILL_DIR}/assets/template.html` (or the equivale
 - `{{BODY}}` → the body sections converted to HTML: `## X` → `<h2>X</h2>`, paragraphs wrapped in `<p>`, lists as `<ul><li>`, superscript markers as `<sup>N</sup>`.
 - `{{SOURCES}}` → an `<ol>` of `<li>` entries built in Step 6.
 
+**Markdown elements not covered above** — convert as expected: `**bold**` → `<strong>`, `*italic*` → `<em>`, `` `code` `` → `<code>`, `[label](url)` → `<a href="url">label</a>`, `### Heading` → `<h3>`, pipe tables → `<table>` with `<thead>`/`<tbody>` rows, blockquotes → `<blockquote>`, fenced code → `<pre><code>`. Preserve the literal `[¹]`, `[²]` superscript markers as `<sup>1</sup>`, `<sup>2</sup>` — do NOT let the `[ ]` be parsed as link brackets. HTML-escape `<`, `>`, `&` in the title and any body text that isn't itself markup.
+
 ## Step 8 — Write the file
 
 Filename: `YYYY-MM-DD-<slug>.<ext>` where `<ext>` is `md` or `html` and the date is today.
@@ -142,6 +154,6 @@ Nothing else. No summary of what's in the file, no offer of follow-ups. The file
 - Do not re-fetch any URL — even if a price feels stale, the contract is that the doc matches what the advisor just showed.
 - Do not re-read research files for fresh material — work only from the latest advisor answer.
 - Do not invent citations the advisor did not make. If the advisor cited two URLs and one research file, the Sources footer has three entries — no more, no fewer.
-- Do not write to any path outside `<PROJECT_ROOT>/exports/`.
+- Do not write to any path outside `<PROJECT_ROOT>/exports/`. The slug pipeline in Step 4 strips `.`, `/`, `\`, and every other non-`[a-z0-9-]` character — if you ever find yourself building a filename that contains those, you've skipped the slug pipeline; go back and apply it.
 - Do not ask follow-up questions after Step 2.
 - Do not export an answer that has zero citations — that's the gate in Step 3.
