@@ -77,6 +77,47 @@
   }
   button.primary:hover { background: #0a2240; }
   button.primary:focus { outline: 2px solid #0a2240; outline-offset: 2px; }
+  /* Exports */
+  #exports-list { margin-top: .6rem; }
+  .export-row {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    padding: .55rem .4rem;
+    border-bottom: 1px solid #eee;
+  }
+  .export-row:hover { background: #f5f5f0; }
+  .export-row a {
+    flex: 1;
+    word-break: break-word;
+    text-decoration: none;
+  }
+  .export-row a:hover { text-decoration: underline; }
+  .export-type {
+    font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    background: #0f3057;
+    color: #fff;
+    padding: .15rem .45rem;
+    border-radius: 3px;
+    min-width: 2.6rem;
+    text-align: center;
+  }
+  .export-type.md { background: #5a6c7d; }
+  .export-date {
+    color: #888;
+    font-size: .85rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .empty { color: #666; font-style: italic; padding: .6rem 0; }
+  .error { color: #b14040; padding: .6rem 0; }
+  .error code {
+    background: rgba(177, 64, 64, .08);
+    padding: .05rem .3rem;
+    border-radius: 2px;
+  }
   @media print {
     body { color: #000; background: #fff; }
     a { color: #000; }
@@ -159,6 +200,14 @@
 
 <button type="submit" class="primary">Download profile</button>
 </form>
+</section>
+
+<section id="exports">
+<h2>Past exports</h2>
+<p>Documents the <code>report</code> skill has saved into <code>exports/</code>. Click to open in a new tab.</p>
+<div id="exports-list">
+  <p class="empty">Loading…</p>
+</div>
 </section>
 <script>
 (function () {
