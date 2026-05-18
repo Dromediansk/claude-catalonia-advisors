@@ -215,6 +215,12 @@
     return new Date().toISOString().slice(0, 10);
   }
 
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
   function rankedInterests(checked, other) {
     const items = checked.slice();
     if (other) items.push(other);
@@ -337,7 +343,7 @@ ${d.notes || "None."}
     return (
       '<div class="export-row">' +
         '<span class="' + typeClass + '">' + type + '</span>' +
-        '<a href="' + url + '" target="_blank" rel="noopener">' + name + '</a>' +
+        '<a href="' + url + '" target="_blank" rel="noopener">' + escapeHtml(name) + '</a>' +
         '<span class="export-date">' + date + '</span>' +
       '</div>'
     );
