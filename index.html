@@ -351,11 +351,21 @@ ${d.notes || "None."}
 
   async function loadExports() {
     const container = document.getElementById("exports-list");
-    const res = await fetch("./exports/");
-    if (!res.ok) throw new Error("HTTP " + res.status);
-    const html = await res.text();
-    const names = sortExportsNewestFirst(parseExportLinks(html));
-    container.innerHTML = names.map(renderExport).join("");
+    try {
+      const res = await fetch("./exports/");
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const html = await res.text();
+      const names = sortExportsNewestFirst(parseExportLinks(html));
+      if (names.length === 0) {
+        container.innerHTML =
+          '<p class="empty">No exports yet. Ask the advisor a question in Claude Code, then say "save this as HTML".</p>';
+        return;
+      }
+      container.innerHTML = names.map(renderExport).join("");
+    } catch (err) {
+      container.innerHTML =
+        '<p class="error">Couldn\'t load the exports list. Are you running <code>python3 -m http.server</code> from the repo root?</p>';
+    }
   }
 
   loadExports();
