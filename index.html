@@ -36,5 +36,79 @@
 <body>
 <h1>catalonia-trip-advisor</h1>
 <p class="meta">Local console — build your trip profile and browse past exports.</p>
+
+<section id="profile">
+<h2>Trip profile</h2>
+<p>Fill this out, click <strong>Download profile</strong>, then move <code>spain-trip-profile.md</code> into <code>profile/</code>. The advisor reads from there.</p>
+
+<form id="profile-form">
+
+<fieldset>
+<legend>Group</legend>
+<input type="text" name="group" placeholder="e.g. Couple, no kids / Family of 4, kids 7 and 10 / Solo">
+</fieldset>
+
+<fieldset>
+<legend>Pace</legend>
+<div class="radios">
+  <label><input type="radio" name="pace" value="Packed — 4+ activities per day."> Packed</label>
+  <label><input type="radio" name="pace" value="Balanced — 2–3 anchor activities per day with time for meals and wandering." checked> Balanced</label>
+  <label><input type="radio" name="pace" value="Slow — 1–2 activities per day with long meals."> Slow</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Interests</legend>
+<div class="checkboxes">
+  <label><input type="checkbox" name="interest" value="Architecture"> Architecture</label>
+  <label><input type="checkbox" name="interest" value="Food"> Food</label>
+  <label><input type="checkbox" name="interest" value="Beach"> Beach</label>
+  <label><input type="checkbox" name="interest" value="Nature / hiking"> Nature / hiking</label>
+  <label><input type="checkbox" name="interest" value="Museums"> Museums</label>
+  <label><input type="checkbox" name="interest" value="History"> History</label>
+  <label><input type="checkbox" name="interest" value="Nightlife"> Nightlife</label>
+  <label><input type="checkbox" name="interest" value="Football"> Football</label>
+  <label><input type="checkbox" name="interest" value="Shopping / markets"> Shopping / markets</label>
+  <label><input type="checkbox" name="interest" value="Kid-friendly"> Kid-friendly</label>
+</div>
+<input type="text" name="otherInterest" placeholder="Other interests (free text)">
+</fieldset>
+
+<fieldset>
+<legend>Budget (per person, per day, excluding lodging)</legend>
+<div class="radios">
+  <label><input type="radio" name="budget" value="Shoestring — ≤€60/person/day excluding lodging."> Shoestring (≤€60)</label>
+  <label><input type="radio" name="budget" value="Mid-range — roughly €60–150/person/day excluding lodging." checked> Mid (€60–150)</label>
+  <label><input type="radio" name="budget" value="Comfortable — roughly €150–250/person/day excluding lodging."> Comfortable (€150–250)</label>
+  <label><input type="radio" name="budget" value="Splurge — €250+/person/day excluding lodging."> Splurge (€250+)</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Diet &amp; restrictions</legend>
+<input type="text" name="diet" placeholder="e.g. None / Vegetarian / Vegan / Gluten-free / Pesco-vegetarian">
+</fieldset>
+
+<fieldset>
+<legend>Base</legend>
+<div class="radios">
+  <label><input type="radio" name="base" value="Barcelona-based. Day trips not planned." checked> Barcelona only</label>
+  <label><input type="radio" name="base" value="Barcelona-based. Open to day trips (Girona, Montserrat, Sitges, Costa Brava)."> Open to day trips</label>
+</div>
+</fieldset>
+
+<fieldset>
+<legend>Mobility / accessibility</legend>
+<input type="text" name="mobility" placeholder="e.g. limited walking, wheelchair, stairs are fine, comfortable with long walks">
+</fieldset>
+
+<fieldset>
+<legend>Notes</legend>
+<textarea name="notes" rows="4" placeholder="Anniversary, prior visits, must-do, must-skip, anything free-form…"></textarea>
+</fieldset>
+
+<button type="submit" class="primary">Download profile</button>
+</form>
+</section>
 </body>
 </html>
