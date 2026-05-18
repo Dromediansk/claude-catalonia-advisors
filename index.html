@@ -160,5 +160,96 @@
 <button type="submit" class="primary">Download profile</button>
 </form>
 </section>
+<script>
+(function () {
+  function todayISO() {
+    return new Date().toISOString().slice(0, 10);
+  }
+
+  function rankedInterests(checked, other) {
+    const items = checked.slice();
+    if (other) items.push(other);
+    if (items.length === 0) {
+      return "1. (none specified — refine anytime)";
+    }
+    return items.map((label, i) => `${i + 1}. ${label}`).join("\n");
+  }
+
+  function buildProfileMarkdown(d) {
+    const today = todayISO();
+    return `---
+created: ${today}
+last_updated: ${today}
+schema: 1
+---
+
+# Catalonia Trip Profile
+
+## Group
+${d.group || "Couple, no kids"}
+
+## Travel style
+${d.pace}
+
+## Interests (ranked)
+${rankedInterests(d.interests, d.otherInterest)}
+Avoid: none specified
+
+## Budget
+${d.budget}
+
+## Diet & restrictions
+${d.diet || "None"}
+
+## Accessibility / mobility
+${d.mobility || "No special needs assumed — say if otherwise"}
+
+## Language
+English only (assumed — refine anytime).
+
+## Base
+${d.base}
+
+## Notes
+${d.notes || "None."}
+`;
+  }
+
+  function readForm(form) {
+    return {
+      group: form.group.value.trim(),
+      pace: form.pace.value,
+      interests: Array.from(
+        form.querySelectorAll('input[name="interest"]:checked')
+      ).map((el) => el.value),
+      otherInterest: form.otherInterest.value.trim(),
+      budget: form.budget.value,
+      diet: form.diet.value.trim(),
+      base: form.base.value,
+      mobility: form.mobility.value.trim(),
+      notes: form.notes.value.trim(),
+    };
+  }
+
+  function downloadBlob(text, filename) {
+    const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  document.getElementById("profile-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const data = readForm(e.target);
+    const md = buildProfileMarkdown(data);
+    downloadBlob(md, "spain-trip-profile.md");
+  });
+})();
+</script>
 </body>
 </html>
