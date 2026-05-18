@@ -71,6 +71,23 @@ You usually don't invoke them by name — just ask a Catalonia question ("Barcel
 
 `<repo-root>/profile/spain-trip-profile.md` — plain markdown, edit by hand any time, or run `/catalonia-trip-advisor:interview` to update it interactively. The file lives at the repo root (next to `CLAUDE.md` and `docs/`), not inside the plugin, so the plugin folder stays a clean publishable artifact. Tradeoff: a fresh clone or reinstall has no profile and re-runs the interview. Run Claude Code from inside the repo (or a subdirectory) so the gate can find it.
 
+## Browse in your browser
+
+A single-file local web console at `index.html` (repo root) lets you build a profile via a form and browse past exports.
+
+From the repo root:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then open <http://localhost:8000>. The page has two sections:
+
+- **Trip profile** — fill out the form and click **Download profile**. Move the downloaded `spain-trip-profile.md` into `profile/`. The advisor reads it from there.
+- **Past exports** — every `.md` and `.html` file in `exports/` is listed newest-first. Click to open in a new tab.
+
+The page never calls an LLM and has no dependencies. If you'd rather edit a profile that already exists, run `/catalonia-trip-advisor:interview` in Claude Code instead.
+
 ## Repo
 
 [github.com/<your-user>/catalonia-trip-advisor](https://github.com/) (replace with the actual URL when published)
