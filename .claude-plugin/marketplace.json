@@ -1,8 +1,7 @@
 {
   "name": "catalonia-local",
   "owner": {
-    "name": "Miroslav Pillar",
-    "email": "miroslav.pillar@finshape.com"
+    "name": "Miroslav Pillar"
   },
   "metadata": {
     "description": "Local marketplace of helper plugins for the Catalonia region."
