@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 
 ## What this is
 
-A local **Claude Code plugin marketplace** named `catalonia-local`. It currently hosts one plugin (`catalonia-trip-advisor`) but the layout is designed to grow into a multi-plugin marketplace — each plugin lives in its own folder at the repo root and is its own publishable unit.
+A local **Claude Code plugin marketplace** named `catalonia-local`. It hosts two plugins (`catalonia-trip-advisor` and `catalonia-real-estate`) and the layout is designed to grow further — each plugin lives in its own folder at the repo root and is its own publishable unit.
 
 The marketplace manifest is `.claude-plugin/marketplace.json`. It declares the marketplace name, owner, and the list of plugins (with relative `source` paths into the repo).
 
@@ -19,6 +19,16 @@ Travel advisor for tourists visiting **Catalonia, with a focus on Barcelona**. S
 - **`report`** — exports the latest substantial advisor answer to `exports/` as markdown or HTML with a numbered Sources footer.
 
 **Plugin authoring rules, conventions, and skill internals live in `catalonia-trip-advisor/CLAUDE.md`.** Read that file before editing anything inside the plugin folder.
+
+### catalonia-real-estate
+
+Advisor for people **buying real estate anywhere in Catalonia** (Barcelona, Girona, Tarragona, Lleida, the coast, inland towns — no single-city bias). Ships the same three-skill structure as the trip advisor:
+
+- **`advisor`** — the main skill. Answers buying-process, price/area benchmark, tax/fee, and resident-vs-non-resident financing questions, and runs **live listing search** across Idealista, Fotocasa, and Habitaclia. Gates every answer on a one-time buyer-profile interview, and carries mandatory not-legal/financial/tax disclaimers.
+- **`interview`** — one-time collection of the buyer's profile (intent, budget, financing, legal status, location, property, timeline, language). Writes `profile/catalonia-realestate-profile.md` at the repo root.
+- **`report`** — exports the latest substantial advisor answer to `exports/` as markdown or HTML with a numbered Sources footer.
+
+**Plugin authoring rules and skill internals live in `catalonia-real-estate/CLAUDE.md`.** Read that file before editing anything inside the plugin folder.
 
 ## Repo layout
 
