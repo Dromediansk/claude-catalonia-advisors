@@ -1,4 +1,4 @@
-# catalonia-local
+# catalonia-advisors
 
 A Claude Code **plugin marketplace** for getting around — and settling into — Catalonia. It ships two plugins:
 
@@ -13,13 +13,13 @@ Add this repo as a marketplace, then install whichever plugin you want. Works fr
 
 ```text
 /plugin marketplace add Dromediansk/trip-advisor-claude-marketplace
-/plugin install catalonia-trip-advisor@catalonia-local
-/plugin install catalonia-real-estate@catalonia-local
+/plugin install catalonia-trip-advisor@catalonia-advisors
+/plugin install catalonia-real-estate@catalonia-advisors
 ```
 
-`/plugin marketplace add` clones the repo and reads its `.claude-plugin/marketplace.json`, which registers the marketplace under the name **`catalonia-local`** — that's the name after the `@` when you install. Install only the plugin you need; you don't have to add both.
+`/plugin marketplace add` clones the repo and reads its `.claude-plugin/marketplace.json`, which registers the marketplace under the name **`catalonia-advisors`** — that's the name after the `@` when you install. Install only the plugin you need; you don't have to add both.
 
-Prefer to browse? Run `/plugin` for the interactive menu (Discover / Installed / Marketplaces tabs), find the plugins under `catalonia-local`, and enable them there.
+Prefer to browse? Run `/plugin` for the interactive menu (Discover / Installed / Marketplaces tabs), find the plugins under `catalonia-advisors`, and enable them there.
 
 After installing, run `/reload-plugins` (or restart Claude Code) and confirm the skills show up under `/help` as `/catalonia-trip-advisor:{advisor,interview,report}` and `/catalonia-real-estate:{advisor,interview,report}`.
 
@@ -27,11 +27,11 @@ After installing, run `/reload-plugins` (or restart Claude Code) and confirm the
 
 ```bash
 claude plugin marketplace add Dromediansk/trip-advisor-claude-marketplace
-claude plugin install catalonia-trip-advisor@catalonia-local
-claude plugin install catalonia-real-estate@catalonia-local
+claude plugin install catalonia-trip-advisor@catalonia-advisors
+claude plugin install catalonia-real-estate@catalonia-advisors
 ```
 
-Useful companions: `claude plugin marketplace list` (see configured marketplaces), `claude plugin marketplace update catalonia-local` (refresh listings after the repo updates), and `claude plugin marketplace remove catalonia-local` (remove it).
+Useful companions: `claude plugin marketplace list` (see configured marketplaces), `claude plugin marketplace update catalonia-advisors` (refresh listings after the repo updates), and `claude plugin marketplace remove catalonia-advisors` (remove it).
 
 ### Specific branch or tag
 

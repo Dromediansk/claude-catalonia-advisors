@@ -28,7 +28,7 @@ Register the repo as a local marketplace and enable the plugin globally. After t
    ```json
    {
      "extraKnownMarketplaces": {
-       "catalonia-local": {
+       "catalonia-advisors": {
          "source": {
            "source": "directory",
            "path": "/absolute/path/to/catalonia-trip-advisor"
@@ -36,7 +36,7 @@ Register the repo as a local marketplace and enable the plugin globally. After t
        }
      },
      "enabledPlugins": {
-       "catalonia-real-estate@catalonia-local": true
+       "catalonia-real-estate@catalonia-advisors": true
      }
    }
    ```

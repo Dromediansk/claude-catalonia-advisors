@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 
 ## What this is
 
-A local **Claude Code plugin marketplace** named `catalonia-local`. It hosts two plugins (`catalonia-trip-advisor` and `catalonia-real-estate`) and the layout is designed to grow further — each plugin lives in its own folder at the repo root and is its own publishable unit.
+A **Claude Code plugin marketplace** named `catalonia-advisors`, published from this GitHub repo and also loadable locally for development. It hosts two plugins (`catalonia-trip-advisor` and `catalonia-real-estate`) and the layout is designed to grow further — each plugin lives in its own folder at the repo root and is its own publishable unit.
 
 The marketplace manifest is `.claude-plugin/marketplace.json`. It declares the marketplace name, owner, and the list of plugins (with relative `source` paths into the repo).
 
@@ -36,7 +36,7 @@ Advisor for people **buying real estate anywhere in Catalonia** (Barcelona, Giro
 catalonia-trip-advisor/                       # repo root
 ├── CLAUDE.md                                 # this file
 ├── README.md                                 # marketplace intro + install instructions
-├── .claude-plugin/marketplace.json           # local-marketplace manifest
+├── .claude-plugin/marketplace.json           # marketplace manifest
 ├── profile/                                  # user data — written by each plugin's interview, read by its advisor (gitignored)
 │   ├── spain-trip-profile.md                 # catalonia-trip-advisor
 │   └── catalonia-realestate-profile.md       # catalonia-real-estate
