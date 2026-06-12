@@ -67,10 +67,33 @@ You usually don't invoke them by name — just ask a Catalonia property question
 2. **Stable vs. volatile facts.**
    - **Stable** (what a tax or step *is*, area character, the general process) → explained in plain language with a disclaimer.
    - **Volatile** (tax rates, mortgage rates, LTV caps, fees, and every listing) → **fetched live** via WebSearch/WebFetch and cited with the fetch date. Never quoted from memory.
-3. **Live listing search.** The advisor builds profile-scoped queries (area, budget, type), searches Idealista/Fotocasa/Habitaclia, and summarizes a handful of representative listings with price, location, link, and a profile-fit note — flagging that listings are time-sensitive and links may expire.
+3. **Live listing search.** The advisor builds profile-scoped queries (area, budget, type), searches Idealista/Fotocasa/Habitaclia, and summarizes a handful of representative listings with price, location, link, and a profile-fit note — flagging that listings are time-sensitive and links may expire. For richer, structured Idealista results you can optionally wire a free MCP server — see [Live Idealista listings](#live-idealista-listings-optional) below.
 4. **Profile-shaped answers.** Intent, budget, financing status, and location filter the advice and scope the search — applied silently, never echoed back at you.
 
 **Disclaimers:** every answer touching process, money, tax, or legal status carries a not-legal/financial/tax disclaimer; listing answers carry a time-sensitivity caveat. These are built into the skills, not optional.
+
+## Live Idealista listings (optional)
+
+Out of the box, the advisor finds listings with `WebSearch` and links you to portal search pages. That works — but **Idealista**, the largest Catalan portal, sits behind anti-bot protection that blocks direct fetching, so the advisor can't always pull structured per-listing detail from it.
+
+To get real, structured Idealista **sale** listings (price, rooms, size, and a clickable link per property), you can wire the free [Apify](https://apify.com/) MCP server. This is **optional** — the plugin works without it — and affects only Idealista; Fotocasa and Habitaclia always use the search fallback.
+
+1. Create a free Apify account at [console.apify.com/sign-up](https://console.apify.com/sign-up) (no credit card).
+2. Copy your API token from **Settings → Integrations → API tokens**.
+3. From the repo root, register the Idealista scraper as a local MCP server (paste your token in place of `YOUR_APIFY_TOKEN`):
+
+   ```bash
+   claude mcp add --transport http --scope local apify-idealista \
+     "https://mcp.apify.com/?actors=lukass/idealista-scraper" \
+     --header "Authorization: Bearer YOUR_APIFY_TOKEN"
+   ```
+
+   `--scope local` keeps the token in your personal project config — it is **not** committed to the repo.
+4. **Restart Claude Code** (a newly added MCP server only loads on a fresh session), then confirm with `claude mcp list` that `apify-idealista` shows `✔ Connected`.
+
+That's it — the advisor automatically prefers the MCP tool for Idealista when it's present and silently falls back to `WebSearch` when it isn't. The Apify free plan includes **$5/month of credits**, which covers casual use comfortably (a typical search costs a fraction of a cent).
+
+For the rationale — anti-bot details, why this actor, and known limitations (e.g. price filtering is done client-side) — see [`docs/idealista-data-access.md`](../docs/idealista-data-access.md).
 
 ## Profile location
 
