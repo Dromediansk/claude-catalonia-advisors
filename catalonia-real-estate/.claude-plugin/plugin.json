@@ -1,0 +1,8 @@
+{
+  "name": "catalonia-real-estate",
+  "description": "Real estate buying advisor for Catalonia — buying process, area and price benchmarks, taxes and fees, resident vs. non-resident financing, and live listing search across Idealista, Fotocasa, and Habitaclia. Gates every answer on a one-time buyer-profile interview.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Miroslav Pillar"
+  }
+}
