@@ -80,16 +80,23 @@ To get real, structured Idealista **sale** listings (price, rooms, size, and a c
 
 1. Create a free Apify account at [console.apify.com/sign-up](https://console.apify.com/sign-up) (no credit card).
 2. Copy your API token from **Settings → Integrations → API tokens**.
-3. From the repo root, register the Idealista scraper as a local MCP server (paste your token in place of `YOUR_APIFY_TOKEN`):
+3. Store the token in an environment variable instead of pasting it into any Claude config. Add this to your shell profile (`~/.zshrc`, `~/.bashrc`, etc.) so it persists across sessions:
+
+   ```bash
+   export APIFY_TOKEN="apify_api_xxxxxxxxxxxxxxxxxxxx"
+   ```
+
+   Then reload your shell (`source ~/.zshrc`) or open a new terminal so the variable is set.
+4. From the repo root, register the Idealista scraper as a local MCP server. Reference the variable in the header — **use single quotes** so your shell does **not** expand `${APIFY_TOKEN}` before Claude stores it:
 
    ```bash
    claude mcp add --transport http --scope local apify-idealista \
-     "https://mcp.apify.com/?actors=lukass/idealista-scraper" \
-     --header "Authorization: Bearer YOUR_APIFY_TOKEN"
+     'https://mcp.apify.com/?actors=lukass/idealista-scraper' \
+     --header 'Authorization: Bearer ${APIFY_TOKEN}'
    ```
 
-   `--scope local` keeps the token in your personal project config — it is **not** committed to the repo.
-4. **Restart Claude Code** (a newly added MCP server only loads on a fresh session), then confirm with `claude mcp list` that `apify-idealista` shows `✔ Connected`.
+   This writes only the literal string `${APIFY_TOKEN}` into your config — **not the token itself**. Claude Code expands it from the environment each time the server loads, so your secret never lands in `claude.json` (or any committed file). `--scope local` additionally keeps the entry in your personal project config rather than the shared repo.
+5. **Restart Claude Code** (a newly added MCP server only loads on a fresh session, and it must inherit the `APIFY_TOKEN` variable from your environment), then confirm with `claude mcp list` that `apify-idealista` shows `✔ Connected`.
 
 That's it — the advisor automatically prefers the MCP tool for Idealista when it's present and silently falls back to `WebSearch` when it isn't. The Apify free plan includes **$5/month of credits**, which covers casual use comfortably (a typical search costs a fraction of a cent).
 
