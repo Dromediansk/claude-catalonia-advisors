@@ -35,8 +35,8 @@ Advisor for people **buying real estate anywhere in Catalonia** (Barcelona, Giro
 ```
 catalonia-trip-advisor/                       # repo root
 ├── CLAUDE.md                                 # this file
+├── README.md                                 # marketplace intro + install instructions
 ├── .claude-plugin/marketplace.json           # local-marketplace manifest
-├── docs/                                     # supplementary docs, not loaded by any plugin
 ├── profile/                                  # user data — written by each plugin's interview, read by its advisor (gitignored)
 │   ├── spain-trip-profile.md                 # catalonia-trip-advisor
 │   └── catalonia-realestate-profile.md       # catalonia-real-estate

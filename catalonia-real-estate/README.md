@@ -93,12 +93,12 @@ To get real, structured Idealista **sale** listings (price, rooms, size, and a c
 
 That's it — the advisor automatically prefers the MCP tool for Idealista when it's present and silently falls back to `WebSearch` when it isn't. The Apify free plan includes **$5/month of credits**, which covers casual use comfortably (a typical search costs a fraction of a cent).
 
-For the rationale — anti-bot details, why this actor, and known limitations (e.g. price filtering is done client-side) — see [`docs/idealista-data-access.md`](../docs/idealista-data-access.md).
+Why this setup: plain `WebFetch` is blocked by Idealista's anti-bot protection (DataDome), so the scraper actor is the only reliable way to pull structured per-listing detail. Known limitation: the actor doesn't filter by price server-side, so the advisor narrows results client-side after fetching.
 
 ## Profile location
 
-`<repo-root>/profile/catalonia-realestate-profile.md` — plain markdown, edit by hand any time, or run `/catalonia-real-estate:interview` to update it interactively. The file lives at the repo root (next to `CLAUDE.md` and `docs/`), not inside the plugin, so the plugin folder stays a clean publishable artifact. Tradeoff: a fresh clone or reinstall has no profile and re-runs the interview. Run Claude Code from inside the repo (or a subdirectory) so the gate can find it.
+`<repo-root>/profile/catalonia-realestate-profile.md` — plain markdown, edit by hand any time, or run `/catalonia-real-estate:interview` to update it interactively. The file lives at the repo root (next to `CLAUDE.md`), not inside the plugin, so the plugin folder stays a clean publishable artifact. Tradeoff: a fresh clone or reinstall has no profile and re-runs the interview. Run Claude Code from inside the repo (or a subdirectory) so the gate can find it.
 
 ## Repo
 
-[github.com/<your-user>/catalonia-trip-advisor](https://github.com/) (replace with the actual URL when published)
+[github.com/Dromediansk/trip-advisor-claude-marketplace](https://github.com/Dromediansk/trip-advisor-claude-marketplace)

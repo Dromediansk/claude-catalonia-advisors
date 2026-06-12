@@ -117,7 +117,7 @@ If you're unsure which bucket a fact belongs to, treat it as volatile.
 
 **Listing portals** — scope queries to the profile (area, budget, type, bedrooms):
 
-- Idealista — https://www.idealista.com/en/ — **preferred live channel:** if an Idealista Apify MCP tool (`lukass/idealista-scraper`) is registered in this session, use it instead of `WebFetch` — plain `WebFetch` is blocked by Idealista's anti-bot (DataDome). Setup is in `docs/idealista-data-access.md`. Falls back to `WebSearch` when the tool isn't present.
+- Idealista — https://www.idealista.com/en/ — **preferred live channel:** if an Idealista Apify MCP tool (`lukass/idealista-scraper`) is registered in this session, use it instead of `WebFetch` — plain `WebFetch` is blocked by Idealista's anti-bot (DataDome). Setup is in the plugin README ("Live Idealista listings (optional)"). Falls back to `WebSearch` when the tool isn't present.
 - Fotocasa — https://www.fotocasa.es/en/
 - Habitaclia (strong in Catalonia) — https://www.habitaclia.com/
 

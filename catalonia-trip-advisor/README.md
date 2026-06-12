@@ -69,8 +69,8 @@ You usually don't invoke them by name — just ask a Catalonia question ("Barcel
 
 ## Profile location
 
-`<repo-root>/profile/spain-trip-profile.md` — plain markdown, edit by hand any time, or run `/catalonia-trip-advisor:interview` to update it interactively. The file lives at the repo root (next to `CLAUDE.md` and `docs/`), not inside the plugin, so the plugin folder stays a clean publishable artifact. Tradeoff: a fresh clone or reinstall has no profile and re-runs the interview. Run Claude Code from inside the repo (or a subdirectory) so the gate can find it.
+`<repo-root>/profile/spain-trip-profile.md` — plain markdown, edit by hand any time, or run `/catalonia-trip-advisor:interview` to update it interactively. The file lives at the repo root (next to `CLAUDE.md`), not inside the plugin, so the plugin folder stays a clean publishable artifact. Tradeoff: a fresh clone or reinstall has no profile and re-runs the interview. Run Claude Code from inside the repo (or a subdirectory) so the gate can find it.
 
 ## Repo
 
-[github.com/<your-user>/catalonia-trip-advisor](https://github.com/) (replace with the actual URL when published)
+[github.com/Dromediansk/trip-advisor-claude-marketplace](https://github.com/Dromediansk/trip-advisor-claude-marketplace)

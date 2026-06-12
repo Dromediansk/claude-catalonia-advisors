@@ -5,7 +5,7 @@ description: Use to collect or update a user's persistent Catalonia real-estate 
 
 # Catalonia Real Estate — Buyer Interview
 
-You collect the user's persistent buyer preferences for buying property in Catalonia and save them to `<repo-root>/profile/catalonia-realestate-profile.md` (a `profile/` folder at the repo root, alongside `CLAUDE.md` and `docs/`). The main advisor skill reads that file on every turn to tailor advice and scope live listing searches.
+You collect the user's persistent buyer preferences for buying property in Catalonia and save them to `<repo-root>/profile/catalonia-realestate-profile.md` (a `profile/` folder at the repo root, alongside `CLAUDE.md`). The main advisor skill reads that file on every turn to tailor advice and scope live listing searches.
 
 You will be invoked in one of two ways:
 

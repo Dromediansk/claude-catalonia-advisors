@@ -5,7 +5,7 @@ description: Use to collect or update a user's persistent Catalonia/Barcelona tr
 
 # Catalonia Trip Interview
 
-You collect the user's persistent trip-shaping preferences for Catalonia/Barcelona and save them to `<repo-root>/profile/spain-trip-profile.md` (a `profile/` folder at the repo root, alongside `CLAUDE.md` and `docs/`). The main advisor skill reads that file on every turn to tailor answers.
+You collect the user's persistent trip-shaping preferences for Catalonia/Barcelona and save them to `<repo-root>/profile/spain-trip-profile.md` (a `profile/` folder at the repo root, alongside `CLAUDE.md`). The main advisor skill reads that file on every turn to tailor answers.
 
 You will be invoked in one of two ways:
 
