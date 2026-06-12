@@ -5,13 +5,18 @@
     "email": "miroslav.pillar@finshape.com"
   },
   "metadata": {
-    "description": "Local marketplace for the catalonia-trip-advisor plugin under development."
+    "description": "Local marketplace of helper plugins for the Catalonia region."
   },
   "plugins": [
     {
       "name": "catalonia-trip-advisor",
       "source": "./catalonia-trip-advisor",
       "description": "Travel advisor for tourists visiting Catalonia and Barcelona — itineraries, day trips, transport, neighborhoods, food, scams, and culture."
+    },
+    {
+      "name": "catalonia-real-estate",
+      "source": "./catalonia-real-estate",
+      "description": "Real estate buying advisor for Catalonia — buying process, price and area benchmarks, taxes, resident vs. non-resident financing, and live listing search across Idealista, Fotocasa, and Habitaclia."
     }
   ]
 }

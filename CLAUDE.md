@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working in this
 
 ## What this is
 
-A local **Claude Code plugin marketplace** named `catalonia-local`. It currently hosts one plugin (`catalonia-trip-advisor`) but the layout is designed to grow into a multi-plugin marketplace — each plugin lives in its own folder at the repo root and is its own publishable unit.
+A local **Claude Code plugin marketplace** named `catalonia-local`. It hosts two plugins (`catalonia-trip-advisor` and `catalonia-real-estate`) and the layout is designed to grow further — each plugin lives in its own folder at the repo root and is its own publishable unit.
 
 The marketplace manifest is `.claude-plugin/marketplace.json`. It declares the marketplace name, owner, and the list of plugins (with relative `source` paths into the repo).
 
@@ -20,6 +20,16 @@ Travel advisor for tourists visiting **Catalonia, with a focus on Barcelona**. S
 
 **Plugin authoring rules, conventions, and skill internals live in `catalonia-trip-advisor/CLAUDE.md`.** Read that file before editing anything inside the plugin folder.
 
+### catalonia-real-estate
+
+Advisor for people **buying real estate anywhere in Catalonia** (Barcelona, Girona, Tarragona, Lleida, the coast, inland towns — no single-city bias). Ships the same three-skill structure as the trip advisor:
+
+- **`advisor`** — the main skill. Answers buying-process, price/area benchmark, tax/fee, and resident-vs-non-resident financing questions, and runs **live listing search** across Idealista, Fotocasa, and Habitaclia. Gates every answer on a one-time buyer-profile interview, and carries mandatory not-legal/financial/tax disclaimers.
+- **`interview`** — one-time collection of the buyer's profile (intent, budget, financing, legal status, location, property, timeline, language). Writes `profile/catalonia-realestate-profile.md` at the repo root.
+- **`report`** — exports the latest substantial advisor answer to `exports/` as markdown or HTML with a numbered Sources footer.
+
+**Plugin authoring rules and skill internals live in `catalonia-real-estate/CLAUDE.md`.** Read that file before editing anything inside the plugin folder.
+
 ## Repo layout
 
 ```
@@ -27,10 +37,15 @@ catalonia-trip-advisor/                       # repo root
 ├── CLAUDE.md                                 # this file
 ├── .claude-plugin/marketplace.json           # local-marketplace manifest
 ├── docs/                                     # supplementary docs, not loaded by any plugin
-├── profile/                                  # user data — written by the interview, read by the advisor (gitignored)
-│   └── spain-trip-profile.md
-├── exports/                                  # generated documents from the report skill (gitignored, safe to delete)
-└── catalonia-trip-advisor/                   # the plugin (see its own CLAUDE.md)
+├── profile/                                  # user data — written by each plugin's interview, read by its advisor (gitignored)
+│   ├── spain-trip-profile.md                 # catalonia-trip-advisor
+│   └── catalonia-realestate-profile.md       # catalonia-real-estate
+├── exports/                                  # generated documents from the report skills (gitignored, safe to delete)
+├── catalonia-trip-advisor/                   # plugin (see its own CLAUDE.md)
+│   ├── .claude-plugin/plugin.json
+│   ├── README.md
+│   └── skills/{advisor,interview,report}/
+└── catalonia-real-estate/                    # plugin (see its own CLAUDE.md)
     ├── .claude-plugin/plugin.json
     ├── README.md
     └── skills/{advisor,interview,report}/
@@ -42,13 +57,13 @@ catalonia-trip-advisor/                       # repo root
 
 ## Local testing
 
-From the repo root:
+From the repo root, load whichever plugin you're working on:
 
 ```bash
-claude --plugin-dir catalonia-trip-advisor
+claude --plugin-dir catalonia-trip-advisor   # or: catalonia-real-estate
 ```
 
-Inside the session, `/reload-plugins` picks up edits without restart. Confirm the plugin's skills appear under `/help` — they're registered as `/catalonia-trip-advisor:advisor`, `/catalonia-trip-advisor:interview`, `/catalonia-trip-advisor:report` (the prefix comes from the plugin's `name` field in `plugin.json`).
+Inside the session, `/reload-plugins` picks up edits without restart. Confirm the plugin's skills appear under `/help` — they're registered under the plugin's `name` field in `plugin.json` as `/catalonia-trip-advisor:{advisor,interview,report}` and `/catalonia-real-estate:{advisor,interview,report}` respectively.
 
 There's no build, no lint, no test suite. The repo is markdown; verification is loading the plugin in a real Claude session and watching the output.
 
