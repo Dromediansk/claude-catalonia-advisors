@@ -55,6 +55,7 @@ Higher stakes than tourism. Two non-negotiable rules baked into the skills:
 
 - **Not legal/financial/tax advice.** Every answer touching process, money, tax, or legal status closes with a short disclaimer recommending a licensed *gestor*, a property lawyer, and the buyer's own bank. The `report` skill carries it into exported documents.
 - **Listings are time-sensitive, best-effort.** Every listing answer states that prices and availability change, listings may be under offer, and links can expire. Never present a fetched price as guaranteed. If a search returns nothing usable, say so and fall back to guidance — never invent listings.
+- **Every listed property carries a clickable direct URL.** In both the `advisor` (listing search) and the `report` (exported document), each property MUST be shown with a navigable link to its own listing page — never a bare portal homepage, never a property the user can't click through to. If no direct URL is obtainable, drop the property rather than show it unnavigable. This is the rule that makes the listing output actionable; don't weaken it.
 
 ## Frontmatter
 

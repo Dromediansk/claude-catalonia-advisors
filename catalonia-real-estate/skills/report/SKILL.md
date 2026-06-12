@@ -83,7 +83,7 @@ Build the body in this order:
 1. **H1 title** (handled by the renderer in Step 8).
 2. **"At a glance" block** (1–3 lines). Derive it from the advisor's answer itself (the answer already reflects the buyer profile). Do NOT open the profile file; the answer is the source of truth. For non-shortlist docs, a 1–2 line lede framing the topic is enough.
 3. **Disclaimer line** (italic, one line) carried from Step 4.
-4. **Body sections.** Mirror the advisor's structure: area/topic sections (`## Eixample — price benchmarks`), or a listing shortlist where each listing is a sub-block with price, location, features, link, and the profile-fit note. Reuse the advisor's wording where it reads well; tighten chattier passages.
+4. **Body sections.** Mirror the advisor's structure: area/topic sections (`## Eixample — price benchmarks`), or a listing shortlist where each listing is a sub-block with price, location, features, link, and the profile-fit note. **Every listing sub-block MUST include a clickable URL to that listing's page rendered inline in the body** — a markdown link the user can click (e.g. `[View listing](https://www.idealista.com/en/inmueble/12345678/)`), not only a number in the Sources footer. This is non-negotiable: the whole point of the document is that the user can navigate to each property. If the advisor's answer showed a listing without a usable URL, do not fabricate one — but flag it ("link not available") rather than presenting the property as navigable. The Sources footer (Step 7) is in addition to, not a replacement for, the inline link. Reuse the advisor's wording where it reads well; tighten chattier passages.
 5. **Inline source markers.** Every cited fact or listing gets a superscript marker numbered in citation order. In markdown: `[¹]`, `[²]`, `[³]` using Unicode superscripts. In HTML, wrap each marker in an anchor that jumps to the matching Sources entry: `<sup><a href="#src1">1</a></sup>`. The same source reused later keeps its first number and the same `href`.
 
 ## Step 7 — Build the Sources footer
@@ -164,6 +164,7 @@ Nothing else.
 - Do not re-fetch any URL or re-run any listing search — the doc matches what the advisor just showed.
 - Do not invent citations the advisor did not make. If the advisor cited three listings and one tax page, the Sources footer has four entries — no more, no fewer.
 - Do not drop the not-legal/financial/tax disclaimer or the listing time-sensitivity caveat.
+- Do not render a listing without a clickable inline URL to its listing page. Every property in the document must be navigable; if the advisor had no link for it, flag "link not available" rather than presenting it as clickable.
 - Do not write to any path outside `<PROJECT_ROOT>/exports/`. The slug pipeline in Step 5 strips `.`, `/`, `\`, `€`, and every other non-`[a-z0-9-]` character — if you're building a filename with those, you skipped the slug pipeline; go back and apply it.
 - Do not ask follow-up questions after Step 2.
 - Do not export an answer that has zero citations — that's the gate in Step 3.

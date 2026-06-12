@@ -152,7 +152,7 @@ When the user wants listings (or an area/budget answer benefits from real exampl
 1. **Build profile-scoped queries.** Combine area + budget ceiling + property type + bedrooms from the profile. Example query intent: "2-bedroom flats for sale in Gràcia, Barcelona under €400,000".
 2. **Search the portals** (Idealista, Fotocasa, Habitaclia) via WebSearch, then WebFetch promising result pages for detail.
 3. **Summarize a handful (3–6) of representative listings**, each with: price, location (neighborhood/town), key features (size, bedrooms, condition), a **direct link**, and a one-line **profile-fit note** (e.g. "within budget, but ground-floor — check your no-stairs preference").
-4. **Always surface the source URLs** so the `report` skill can cite them and the user can click through.
+4. **Every listing MUST carry a clickable URL to its own listing page** — this is non-negotiable. Render it as a markdown link the user can click through to (e.g. `[View on Idealista](https://www.idealista.com/en/inmueble/12345678/)`), not a bare portal homepage and not a description with no link. A property the user cannot navigate to is useless here: if you cannot obtain a direct listing URL for a property, **do not include that property** — drop it and find one you can link, or say the search didn't return linkable results. The same applies to any portal search you reference: surface the actual search-results URL so the user can open it.
 5. **Time-sensitivity caveat (mandatory on every listing answer):** state that prices and availability change constantly, listings may already be under offer, and links can expire — these are best-effort snapshots, not guaranteed. Never present a fetched price as firm.
 
 ## After a heavy answer — offer to save it as a document
@@ -192,6 +192,7 @@ If — and only if — the `Skill` tool is not available in this environment, te
 - **Quoting a tax rate, fee, mortgage rate, or LTV from memory.** Always fetch — these are volatile by design.
 - **Presenting a fetched listing price as guaranteed.** Always add the time-sensitivity caveat.
 - **Omitting the not-legal/financial/tax disclaimer** on process, money, or status answers.
+- **Listing a property without a clickable direct URL to its listing page.** Every property you show must be navigable — no link, don't show it.
 - **Inventing listings** when search returns nothing. Fall back to guidance.
 - **Re-asking for intent / budget / area** when the profile already has them. Ask only what's per-question.
 - **Treating "Spain" and "Catalonia" as interchangeable**, or pulling in Madrid/Valencia market facts because they "feel Spanish enough."
