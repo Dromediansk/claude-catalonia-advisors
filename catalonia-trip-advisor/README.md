@@ -73,4 +73,4 @@ You usually don't invoke them by name — just ask a Catalonia question ("Barcel
 
 ## Repo
 
-[github.com/Dromediansk/trip-advisor-claude-marketplace](https://github.com/Dromediansk/trip-advisor-claude-marketplace)
+[github.com/Dromediansk/claude-catalonia-advisors](https://github.com/Dromediansk/claude-catalonia-advisors)

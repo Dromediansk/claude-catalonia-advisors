@@ -12,7 +12,7 @@ Add this repo as a marketplace, then install whichever plugin you want. Works fr
 ### From inside Claude Code
 
 ```text
-/plugin marketplace add Dromediansk/trip-advisor-claude-marketplace
+/plugin marketplace add Dromediansk/claude-catalonia-advisors
 /plugin install catalonia-trip-advisor@catalonia-advisors
 /plugin install catalonia-real-estate@catalonia-advisors
 ```
@@ -26,7 +26,7 @@ After installing, run `/reload-plugins` (or restart Claude Code) and confirm the
 ### From your shell
 
 ```bash
-claude plugin marketplace add Dromediansk/trip-advisor-claude-marketplace
+claude plugin marketplace add Dromediansk/claude-catalonia-advisors
 claude plugin install catalonia-trip-advisor@catalonia-advisors
 claude plugin install catalonia-real-estate@catalonia-advisors
 ```
@@ -38,7 +38,7 @@ Useful companions: `claude plugin marketplace list` (see configured marketplaces
 Append `#ref` to the source to pin a branch or tag:
 
 ```text
-/plugin marketplace add https://github.com/Dromediansk/trip-advisor-claude-marketplace.git#main
+/plugin marketplace add https://github.com/Dromediansk/claude-catalonia-advisors.git#main
 ```
 
 ## Using the plugins

@@ -101,4 +101,4 @@ Why this setup: plain `WebFetch` is blocked by Idealista's anti-bot protection (
 
 ## Repo
 
-[github.com/Dromediansk/trip-advisor-claude-marketplace](https://github.com/Dromediansk/trip-advisor-claude-marketplace)
+[github.com/Dromediansk/claude-catalonia-advisors](https://github.com/Dromediansk/claude-catalonia-advisors)
