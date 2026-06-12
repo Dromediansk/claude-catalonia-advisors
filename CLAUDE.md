@@ -37,10 +37,15 @@ catalonia-trip-advisor/                       # repo root
 ├── CLAUDE.md                                 # this file
 ├── .claude-plugin/marketplace.json           # local-marketplace manifest
 ├── docs/                                     # supplementary docs, not loaded by any plugin
-├── profile/                                  # user data — written by the interview, read by the advisor (gitignored)
-│   └── spain-trip-profile.md
-├── exports/                                  # generated documents from the report skill (gitignored, safe to delete)
-└── catalonia-trip-advisor/                   # the plugin (see its own CLAUDE.md)
+├── profile/                                  # user data — written by each plugin's interview, read by its advisor (gitignored)
+│   ├── spain-trip-profile.md                 # catalonia-trip-advisor
+│   └── catalonia-realestate-profile.md       # catalonia-real-estate
+├── exports/                                  # generated documents from the report skills (gitignored, safe to delete)
+├── catalonia-trip-advisor/                   # plugin (see its own CLAUDE.md)
+│   ├── .claude-plugin/plugin.json
+│   ├── README.md
+│   └── skills/{advisor,interview,report}/
+└── catalonia-real-estate/                    # plugin (see its own CLAUDE.md)
     ├── .claude-plugin/plugin.json
     ├── README.md
     └── skills/{advisor,interview,report}/
@@ -52,13 +57,13 @@ catalonia-trip-advisor/                       # repo root
 
 ## Local testing
 
-From the repo root:
+From the repo root, load whichever plugin you're working on:
 
 ```bash
-claude --plugin-dir catalonia-trip-advisor
+claude --plugin-dir catalonia-trip-advisor   # or: catalonia-real-estate
 ```
 
-Inside the session, `/reload-plugins` picks up edits without restart. Confirm the plugin's skills appear under `/help` — they're registered as `/catalonia-trip-advisor:advisor`, `/catalonia-trip-advisor:interview`, `/catalonia-trip-advisor:report` (the prefix comes from the plugin's `name` field in `plugin.json`).
+Inside the session, `/reload-plugins` picks up edits without restart. Confirm the plugin's skills appear under `/help` — they're registered under the plugin's `name` field in `plugin.json` as `/catalonia-trip-advisor:{advisor,interview,report}` and `/catalonia-real-estate:{advisor,interview,report}` respectively.
 
 There's no build, no lint, no test suite. The repo is markdown; verification is loading the plugin in a real Claude session and watching the output.
 
