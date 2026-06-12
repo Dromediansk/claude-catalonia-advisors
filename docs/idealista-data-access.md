@@ -90,6 +90,41 @@ The question that matters most: **what is free and stays free?**
 **Apify free plan + its Idealista MCP**. If terms-of-service cleanliness matters more than
 setup speed, pursue the **official API** and live with the quota.
 
+## Validation (2026-06-12) — channel confirmed
+
+We wired the Apify free plan + MCP and tested two actors against the plugin's real
+requirements (sale not rent, anywhere in Catalonia, a clickable per-listing URL).
+
+**Winner — [`lukass/idealista-scraper`](https://apify.com/lukass/idealista-scraper/api/mcp).**
+A `sale` query for `district: "Girona"` returned 5 real Idealista listings in ~12s, each with
+a direct `https://www.idealista.com/inmueble/<id>/` URL plus price, rooms, baths, size,
+address, typology, photos, and agent contact. This is the channel to wire. Notes:
+
+- `operation` supports `sale` (default) — not rental-only.
+- `district` is **free-text** (e.g. "Girona", "Tarragona"), so it covers all of Catalonia, not a fixed city list. `startUrl` also accepts a full Idealista search URL.
+- `proxy` is **required** (`{"useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"]}` works).
+- **No `maxPrice`/`minPrice` parameter, and price-filtered `startUrl`s don't work.** We tested it: a plain-location `startUrl` (`/venta-viviendas/girona-girona/`) and the `district` param both crawl fine, but the same URL with a `con-precio-hasta_300000` segment failed twice (`0 succeeded, 1 failed`, 0 items) — even though that's valid Idealista syntax. This actor can't crawl custom filtered search URLs (see its [Custom search URL issue](https://apify.com/lukass/idealista-scraper/issues/custom-search-url-fXl80Sqf2JVdYuEFk)). **Scope the area via `district` and enforce the budget ceiling by post-filtering returned items** (fetch a generous `maxItems` since results aren't price-sorted).
+- The `bedrooms`/`bathrooms`/`condition`/`features` filters expect **arrays of objects, not strings** — non-obvious, and we didn't reverse-engineer the object shape. Post-filtering returned items on these fields is the reliable path.
+- Idealista-only. Fotocasa/Habitaclia stay on the `WebSearch`/portal-URL fallback.
+- Cost across the whole validation session: ~0.025 compute units — negligible against the $5/mo.
+
+**Rejected — [`friendly_keelboat/spain-portugal-real-estate`](https://apify.com/friendly_keelboat/spain-portugal-real-estate/api/mcp).**
+Despite the multi-portal billing, its input schema scrapes **rental** listings only (prices
+came back as monthly rents, URLs were `/alquiler/`), its `city` enum is limited to five
+Spanish cities (Barcelona the only Catalan one — no Girona/Tarragona/Lleida), and its
+Idealista source returned **0** items (Fotocasa carried the run). Wrong product type and
+wrong geography for a buying advisor. Do not use it for this plugin.
+
+**Registration used (local scope, token kept out of the repo):**
+
+```bash
+claude mcp add --transport http --scope local apify-idealista \
+  "https://mcp.apify.com/?actors=lukass/idealista-scraper" \
+  --header "Authorization: Bearer ${APIFY_TOKEN}"
+```
+
+A newly pinned actor only loads on a fresh Claude Code session start — restart after adding.
+
 ## If you decide to wire one up
 
 The advisor skill currently lists Idealista/Fotocasa/Habitaclia as `WebSearch`/`WebFetch`

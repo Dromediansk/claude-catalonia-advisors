@@ -117,7 +117,7 @@ If you're unsure which bucket a fact belongs to, treat it as volatile.
 
 **Listing portals** — scope queries to the profile (area, budget, type, bedrooms):
 
-- Idealista — https://www.idealista.com/en/
+- Idealista — https://www.idealista.com/en/ — **preferred live channel:** if an Idealista Apify MCP tool (`lukass/idealista-scraper`) is registered in this session, use it instead of `WebFetch` — plain `WebFetch` is blocked by Idealista's anti-bot (DataDome). Setup is in `docs/idealista-data-access.md`. Falls back to `WebSearch` when the tool isn't present.
 - Fotocasa — https://www.fotocasa.es/en/
 - Habitaclia (strong in Catalonia) — https://www.habitaclia.com/
 
@@ -150,7 +150,9 @@ Never improvise rates, fees, or listings from prior knowledge.
 When the user wants listings (or an area/budget answer benefits from real examples):
 
 1. **Build profile-scoped queries.** Combine area + budget ceiling + property type + bedrooms from the profile. Example query intent: "2-bedroom flats for sale in Gràcia, Barcelona under €400,000".
-2. **Search the portals** (Idealista, Fotocasa, Habitaclia) via WebSearch, then WebFetch promising result pages for detail.
+2. **Fetch listings — prefer the MCP channel for Idealista.**
+   - **If an Idealista Apify MCP tool (`lukass/idealista-scraper`) is available this session**, call it for Idealista instead of `WebFetch`. Set `operation: "sale"`, `propertyType: "homes"`, `country: "es"`, and the required `proxy` (`{"useApifyProxy": true, "apifyProxyGroups": ["RESIDENTIAL"]}`). Scope the **area** by passing it as `district` (free-text, e.g. "Girona") — this is the reliable lever. The tool has **no price parameter**, and a price-filtered `startUrl` does **not** work with this actor (its custom filtered search URLs fail to crawl), so enforce the budget ceiling client-side: fetch a generous `maxItems` (e.g. 20–30, since results aren't price-sorted) and **discard returned items priced above the budget** before presenting. Each result already carries a direct `idealista.com/inmueble/<id>/` URL — use it as the listing link.
+   - **Otherwise — tool not registered, or it returns nothing — fall back** to `WebSearch` across Idealista, Fotocasa, and Habitaclia, then `WebFetch` promising result pages (Idealista `WebFetch` is often blocked, so lean on the `WebSearch` result URLs there). Fotocasa and Habitaclia always use this fallback path.
 3. **Summarize a handful (3–6) of representative listings**, each with: price, location (neighborhood/town), key features (size, bedrooms, condition), a **direct link**, and a one-line **profile-fit note** (e.g. "within budget, but ground-floor — check your no-stairs preference").
 4. **Every listing MUST carry a clickable URL to its own listing page** — this is non-negotiable. Render it as a markdown link the user can click through to (e.g. `[View on Idealista](https://www.idealista.com/en/inmueble/12345678/)`), not a bare portal homepage and not a description with no link. A property the user cannot navigate to is useless here: if you cannot obtain a direct listing URL for a property, **do not include that property** — drop it and find one you can link, or say the search didn't return linkable results. The same applies to any portal search you reference: surface the actual search-results URL so the user can open it.
 5. **Time-sensitivity caveat (mandatory on every listing answer):** state that prices and availability change constantly, listings may already be under offer, and links can expire — these are best-effort snapshots, not guaranteed. Never present a fetched price as firm.
